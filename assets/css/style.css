@@ -1,0 +1,33 @@
+body {
+   background-color:  lightblue;
+}
+.quizcontainer {
+  background-color:  lightblue;
+
+}
+
+
+
+.questionbtn{
+  font-size: 26px;
+  width: 75px;
+  background-color: burlywood;
+  color:rgb(41, 36, 36);
+  margin-top: 25px;
+}
+.question{
+  font-size: 24px;
+  color:  rgb(73, 71, 54);
+}
+.answers {
+  display:justify-content-center;
+}
+.form-check-label {
+  font-size: 18px;
+  font-weight: bold;
+  color:  rgb(73, 71, 54);
+}
+
+
+
+
