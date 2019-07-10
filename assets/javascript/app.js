@@ -1,100 +1,35 @@
-(function($) {
-    $.fn.emc = function(options) {
-      
-      var defaults = {
-        key: [],
-        scoring: "normal",
-        progress: true
-      },
-      settings = $.extend(defaults,options),
-      $quizItems = $('[data-quiz-item]'),
-      $choices = $('[data-choices]'),
-      itemCount = $quizItems.length,
-      chosen = [],
-      $option = null,
-      $label = null;
-      
-     emcInit();
-      
-     if (settings.progress) {
-        var $bar = $('#emc-progress'),
-            $inner = $('<div id="emc-progress_inner"></div>'),
-            $perc = $('<span id="emc-progress_ind">0/'+itemCount+'</span>');
-        $bar.append($inner).prepend($perc);
-      }
-      
-      function emcInit() {
-        $quizItems.each( function(index,value) {
-        var $this = $(this),
-            $choiceEl = $this.find('.choices'),
-            choices = $choiceEl.data('choices');
-          for (var i = 0; i < choices.length; i++) {
-            $option = $('<input name="'+index+'" id="'+index+'_'+i+'" type="radio">');
-            $label = $('<label for="'+index+'_'+i+'">'+choices[i]+'</label>');
-            $choiceEl.append($option).append($label);
-              
-            $option.on( 'change', function() {
-              return getChosen();
-            }); 
-          }
-        });
-      }
-      
-      function getChosen() {
-        chosen = [];
-        $choices.each( function() {
-          var $inputs = $(this).find('input[type="radio"]');
-          $inputs.each( function(index,value) {
-            if($(this).is(':checked')) {
-              chosen.push(index + 1);
-            }
-          });
-        });
-        getProgress();
-      }
-      
-      function getProgress() {
-        var prog = (chosen.length / itemCount) * 100 + "%",
-            $submit = $('#emc-submit');
-        if (settings.progress) {
-          $perc.text(chosen.length+'/'+itemCount);  
-          $inner.css({height: prog});
-        }
-        if (chosen.length === itemCount) {
-          $submit.addClass('ready-show');
-          $submit.click( function(){
-            return scoreNormal();
-          });
-        }
-      }
-      
-      function scoreNormal() {
-        var wrong = [],
-            score = null,
-            $scoreEl = $('#emc-score');
-        for (var i = 0; i < itemCount; i++) {
-          if (chosen[i] != settings.key[i]) {
-            wrong.push(i);
-          }
-        }
-        $quizItems.each( function(index) {
-          var $this = $(this);
-          if ($.inArray(index, wrong) !== -1 ) {
-              $this.removeClass('item-correct').addClass('item-incorrect');
-          } else {
-            $this.removeClass('item-incorrect').addClass('item-correct');
-          }
-        });
-        
-        score = ((itemCount - wrong.length) / itemCount).toFixed(2) * 100 + "%";
-        $scoreEl.text("You scored a "+score).addClass('new-score');
-        $('html,body').animate({scrollTop: 0}, 50);
-      }
-   
-    }
-  }(jQuery));
-  
-  
-  $(document).emc({
-    key: ["2","1","2","2","2","2","1", "1"]
-  });
+
+// Setting up array for multiple choice questions. 
+
+var allQuestions = [{
+  question: "This animal's name means river horse. What is the name of this very large animal that is usually found standing in the water?",
+  choices: ["Warthog", "Hippopotamus", "Rhinocerus", "Alligator"],
+  correctAnswer: 1
+},
+
+{
+  question: "DThis feline is the largest of Africa’s cats, spending its days lounging in the sun. It hunts big game such as zebra and wildebeest during early morning and evening hours:",
+  choices: ["Leopard", "Caracal", "Cheetah", "Lion"],
+  correctAnswer: 3
+},
+
+{
+  question: "The term Big Five refers to:",
+  choices: ["Cheetah, giraffe, lion, great antelope, elephant", "Wildebeest, lion, zebra, elephant, rhinocerus", "Cape buffalo, lion, leopard, elephant, rhinoceros", "Hippo, crocodile, gorilla, rhinocerus, leopard"],
+  correctAnswer: 2
+},
+
+{
+  question: "Elephants are the largest land animals and are incredibly intelligent creatures. Which of the following traits do humans & elephants share?",
+  choices: ["Long-term memory", "Form deep family bonds", "Bury their dead", "All of the above"],
+  correctAnswer: 3
+},
+
+{
+  question: "Venom has little effect on this thick-skinned, fearless creature that can kill and eat snakes (even the deadly black mamba!) and also has a particular fondness for bee larvae:",
+  choices: ["Meerkat", "Honey Badger", "Serval", "Bar-eared fox"],
+  correctAnswer: 1
+},
+];
+var currentquestion = 0;
+var correctAnswers = 0;

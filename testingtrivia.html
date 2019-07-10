@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Testing Moving Trivia</title>
+    <link href="assets/css/reset.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Advent+Pro|Gruppo|Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <link href="assets/css/style.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+
+
+
+</head>
+<body>
+    
+<div class="header">
+    <h1>African Safari</h1>
+    <h3>Timed Trivia Quiz</h3>
+</div> 
+<a href="#" id="start" class="btn btn-primary btn-lg justify-content-center">Let's Begin</a>
+<br/>
+<div id="playarea" class="jumbotron">
+  <h3 id="question"></h3>
+  <br/><br/>
+  <form id="form">
+
+  </form>
+  <br/>
+  <a href="#" id="next" class="button">Next</a><br/>
+  <div id="progressbar" ></div>
+</div>
+<div id="result"></div>
+<footer> 
+  <img src="assets/images/africanSavannah.jpg">
+</footer>
+
+<script>
+
+  // Setting up array for multiple choice questions. 
+  
+  var allQuestions = [{
+          question: "This animal's name means river horse. What is the name of this very large animal that is usually found standing in the water?",
+          choices: ["Warthog", "Hippopotamus", "Rhinocerus", "Alligator"],
+          correctAnswer: 1
+      },
+  
+      {
+          question: "This feline is the largest of Africa’s cats, spending its days lounging in the sun. It hunts big game such as zebra and wildebeest during early morning and evening hours:",
+          choices: ["Leopard", "Caracal", "Cheetah", "Lion"],
+          correctAnswer: 3
+      },
+  
+      {
+          question: "The term Big Five refers to:",
+          choices: ["Cheetah, giraffe, lion, great antelope, elephant", "Wildebeest, lion, zebra, elephant, rhinocerus", "Cape buffalo, lion, leopard, elephant, rhinoceros", "Hippo, crocodile, gorilla, rhinocerus, leopard"],
+          correctAnswer: 2
+      },
+  
+      {
+          question: "Elephants are the largest land animals and are incredibly intelligent creatures. Which of the following traits do humans & elephants share?",
+          choices: ["Long-term memory", "Form deep family bonds", "Bury their dead", "All of the above"],
+          correctAnswer: 3
+      },
+  
+      {
+          question: "Venom has little effect on this thick-skinned, fearless creature that can kill and eat snakes (even the deadly black mamba!) and also has a particular fondness for bee larvae:",
+          choices: ["Meerkat", "Honey Badger", "Serval", "Bar-eared fox"],
+          correctAnswer: 1
+      },
+  ];
+  var currentquestion = 0;
+  var correctAnswers = 0;
+  
+  function setupOptions() {
+    $('#question').html(parseInt(currentquestion) + 1 + ". " + allQuestions[currentquestion].question);
+    var options = allQuestions[currentquestion].choices;
+    var formHtml = '';
+    for (var i = 0; i < options.length; i++) {
+      formHtml += '<div><input type="radio" name="option" value="' + i + '" id="option' + i + '"><label for="option' + i + '">' +
+        allQuestions[currentquestion].choices[i] + '</label></div><br/>';
+    }
+    $('#form').html(formHtml);
+    $("#option0").prop('checked', true);
+  };
+  
+  function checkAns() {
+    if ($("input[name=option]:checked").val() == allQuestions[currentquestion].correctAnswer) {
+      correctAnswers++;
+    };
+  };
+  
+  $(document).ready(function() {
+  
+    $(".jumbotron").hide();
+    $('#start').click(function() {
+      $(".jumbotron").fadeIn();
+      $(this).hide();
+    });
+  
+    $(function() {
+      $("#progressbar").progressbar({
+        max: allQuestions.length - 1,
+        value: 0
+      });
+    });
+  
+    setupOptions();
+  
+    $("#next").click(function() {
+      event.preventDefault();
+      checkAns();
+      currentquestion++;
+      $(function() {
+        $("#progressbar").progressbar({
+          value: currentquestion
+        });
+      });
+      if (currentquestion < allQuestions.length) {
+        setupOptions();
+        if (currentquestion == allQuestions.length - 1) {
+          $('#next').html("Submit");
+          $('#next').click(function() {
+            $(".jumbotron").hide();
+            $("#result").html("You correctly answered " + correctAnswers + " out of " + currentquestion + " questions! ").hide();
+            $("#result").fadeIn(1500);
+          });
+  
+        };
+  
+      };
+    });
+  });
+  
+  </script>
+   
+
+</body>
+</html>
