@@ -1,40 +1,93 @@
 body {
-}
+  background-color: lightblue;
+  font-family: 'Josefin Sans', sans-serif;
+ }
 
- .jumbotron {
-  background-image: url("../images/africanSavannah.jpg");
+ .header {
+    margin: 0 auto;
+    color: rgb(73, 71, 54);
+    text-align: center;
+    
+ }
+ #playarea {
+  background-color: lightblue;
   background-size: 100%;
   background-repeat: no-repeat;
   margin: 0 auto;
+  text-align: center;
  }
- }
-.quizcontainer {
-  background:  lightblue;
-
-}
 
 
 
-.questionbtn{
-  font-size: 26px;
-  width: 75px;
-  background-color: burlywood;
-  color:rgb(41, 36, 36);
-  margin-top: 25px;
+h1 {
+  font-size: 36px;
+  font-family: arial;
 }
-.question{
-  font-size: 24px;
-  color:  rgb(73, 71, 54);
+
+#question {
+
+  font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    color:  rgb(73, 71, 54);
+  }
+
+label{
+  display: inline;
+}  
+
+#next {
+  text-align: center;
+  display: inline-block;
+  border-radius: 10%;
 }
-.answers {
-  display:justify-content-center;
-}
-.form-check-label {
-  font-size: 18px;
+
+#result {
+  font-family: 'Josefin Sans', sans-serif;
   font-weight: bold;
-  color:  rgb(73, 71, 54);
+  font-size: 36px;
+  color:  burlywood;
 }
 
+input[name="option"] {
+  float:left;
+
+}
+
+#form div{
+  margin:auto;
+  /* max-width: 500px; */
+}
+
+#form {
+  font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 20px;
+    color:  rgb(73, 71, 54);
+}
+#progressbar {
+  margin: auto;
+  margin-bottom: 20px;
+  float: none; 
+  width: 50%;
+ }
 
 
 
+input, select {
+    vertical-align:middle;
+}
+
+.button {
+    display: inline-block;
+    padding: 1em;
+    background-color: #79BD9A;
+    text-decoration: none !important; 
+    color: white !important;
+} 
+
+
+#elephants{
+  display: justify-content-center;
+}

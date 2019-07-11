@@ -23,6 +23,8 @@
 <a href="#" id="start" class="btn btn-primary btn-lg justify-content-center">Let's Begin</a>
 <br/>
 <div id="playarea" class="jumbotron">
+    <p id="remaining-time" class="lead">Remaining Time: <span id="timer"></span></p>
+    <p id="question" class="lead"></p>
   <h3 id="question"></h3>
   <br/><br/>
   <form id="form">
@@ -94,9 +96,9 @@
   
   $(document).ready(function() {
   
-    $(".jumbotron").hide();
+    // $(".jumbotron").hide();
     $('#start').click(function() {
-      $(".jumbotron").fadeIn();
+      // $(".jumbotron").fadeIn();
       $(this).hide();
     });
   
@@ -123,7 +125,7 @@
         if (currentquestion == allQuestions.length - 1) {
           $('#next').html("Submit");
           $('#next').click(function() {
-            $(".jumbotron").hide();
+            // $(".jumbotron").hide();
             $("#result").html("You correctly answered " + correctAnswers + " out of " + currentquestion + " questions! ").hide();
             $("#result").fadeIn(1500);
           });
